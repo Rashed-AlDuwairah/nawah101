@@ -106,6 +106,7 @@ class _EditorScreenState extends State<EditorScreen> {
                   controller: _textController,
                   textAlign: TextAlign.right,
                   textDirection: TextDirection.rtl,
+                  textAlignVertical: TextAlignVertical.top,
                   maxLines: null,
                   expands: true,
                   keyboardType: TextInputType.multiline,

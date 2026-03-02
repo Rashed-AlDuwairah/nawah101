@@ -11,25 +11,10 @@ class ThemeNotifier extends ValueNotifier<ThemeMode> {
 
   static final ThemeNotifier instance = ThemeNotifier._();
 
-  bool get isDark => value == ThemeMode.dark;
+  bool get isDark => AppColors.isDark;
 
   /// True during theme switch animation (shows splash)
   bool isSwitching = false;
-
-  /// Switch theme with splash overlay
-  void setDark(bool dark) {
-    if (AppColors.isDark == dark) return;
-    isSwitching = true;
-    notifyListeners(); // show splash
-
-    // After a brief delay, apply the actual color change
-    Future.delayed(const Duration(milliseconds: 400), () {
-      value = dark ? ThemeMode.dark : ThemeMode.light;
-      // isSwitching will be set to false when splash completes
-    });
-  }
-
-  void toggle() => setDark(!isDark);
 
   void onSplashDone() {
     isSwitching = false;

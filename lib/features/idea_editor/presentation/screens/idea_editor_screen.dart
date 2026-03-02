@@ -316,6 +316,7 @@ class _IdeaEditorScreenState extends State<IdeaEditorScreen> {
               constraints: const BoxConstraints(minHeight: 120),
               child: TextField(
                 controller: card.controller,
+                textAlignVertical: TextAlignVertical.top,
                 maxLines: null,
                 minLines: 5, // Make the default box larger like an iPhone note
                 onChanged: (_) => _simulateSave(),

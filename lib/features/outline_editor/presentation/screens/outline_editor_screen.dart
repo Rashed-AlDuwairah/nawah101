@@ -385,6 +385,7 @@ class _OutlineEditorScreenState extends State<OutlineEditorScreen> {
                         child: TextFormField(
                           initialValue: node.description,
                           onChanged: (val) => node.description = val,
+                          textAlignVertical: TextAlignVertical.top,
                           maxLines: null, // Auto-expand horizontally
                           minLines: 3,
                           style: TextStyle(
@@ -399,6 +400,7 @@ class _OutlineEditorScreenState extends State<OutlineEditorScreen> {
                               height: 1.6,
                             ),
                             border: InputBorder.none,
+                            contentPadding: const EdgeInsets.all(12),
                           ),
                           readOnly: widget.isGuest,
                         ),

@@ -109,7 +109,9 @@ class _ReviewEditsScreenState extends State<ReviewEditsScreen> {
                   controller: reasonController,
                   textAlign: TextAlign.right,
                   textDirection: TextDirection.rtl,
-                  maxLines: 3,
+                  textAlignVertical: TextAlignVertical.top,
+                  maxLines: null,
+                  minLines: 3,
                   style: TextStyle(fontSize: 14, color: AppColors.textPrimary),
                   decoration: InputDecoration(
                     hintText: 'اكتب السبب هنا...',
@@ -292,8 +294,8 @@ class _ReviewEditsScreenState extends State<ReviewEditsScreen> {
           color: isPending
               ? AppColors.warning.withValues(alpha: 0.3)
               : isAccepted
-              ? AppColors.success.withValues(alpha: 0.3)
-              : AppColors.danger.withValues(alpha: 0.3),
+                  ? AppColors.success.withValues(alpha: 0.3)
+                  : AppColors.danger.withValues(alpha: 0.3),
         ),
         boxShadow: [
           BoxShadow(

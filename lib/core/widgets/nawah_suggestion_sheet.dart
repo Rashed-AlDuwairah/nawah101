@@ -138,7 +138,8 @@ class NawahSuggestionSheet {
                   ),
                   child: TextField(
                     controller: controller,
-                    maxLines: 5,
+                    textAlignVertical: TextAlignVertical.top,
+                    maxLines: null,
                     minLines: 3,
                     style: TextStyle(
                       fontSize: 15,

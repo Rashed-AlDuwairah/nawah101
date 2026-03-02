@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/theme/theme_notifier.dart';
 import '../../../../core/widgets/nawah_top_notification.dart';
 
 /// Screen 6: Profile Screen (حسابي)
@@ -169,18 +168,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onTap: _showComingSoon,
                     ).animate().fadeIn(duration: 400.ms, delay: 500.ms),
 
-                    // ── Theme Toggle ──
-                    _buildThemeItem().animate().fadeIn(
-                          duration: 400.ms,
-                          delay: 600.ms,
-                        ),
-
                     _buildMenuItem(
                       'عن نواة',
                       Icons.info_outline_rounded,
                       AppColors.textSecondary,
                       onTap: _showComingSoon,
-                    ).animate().fadeIn(duration: 400.ms, delay: 700.ms),
+                    ).animate().fadeIn(duration: 400.ms, delay: 600.ms),
 
                     const SizedBox(height: 10),
 
@@ -190,7 +183,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       AppColors.danger,
                       isDanger: true,
                       onTap: _confirmLogout,
-                    ).animate().fadeIn(duration: 400.ms, delay: 800.ms),
+                    ).animate().fadeIn(duration: 400.ms, delay: 700.ms),
 
                     const SizedBox(height: 24),
 
@@ -223,7 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ],
                         ),
                       ),
-                    ).animate().fadeIn(duration: 400.ms, delay: 900.ms),
+                    ).animate().fadeIn(duration: 400.ms, delay: 800.ms),
                   ],
                 ),
               ),
@@ -238,137 +231,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     NawahTopNotification.show(
       context,
       message: 'هذه الميزة قيد التطوير • النسخة التجريبية',
-    );
-  }
-
-  // ━━━━━━━━━━━━ Theme Toggle ━━━━━━━━━━━━
-  Widget _buildThemeItem() {
-    final isDark = ThemeNotifier.instance.isDark;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      decoration: BoxDecoration(
-        color: AppColors.card,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Icon(
-                Icons.chevron_left_rounded,
-                color: AppColors.textHint,
-                size: 20,
-              ),
-              const Spacer(),
-              Text(
-                'المظهر',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.textPrimary,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
-                  color: const Color(0xFF00BFA5),
-                  size: 20,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          // ── 3 mode toggles ──
-          Container(
-            padding: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              color: AppColors.surfaceVariant,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              children: [
-                _buildThemeOption(
-                  icon: Icons.light_mode_rounded,
-                  label: 'فاتح',
-                  isSelected: !isDark,
-                  onTap: () {
-                    ThemeNotifier.instance.setDark(false);
-                    setState(() {});
-                  },
-                ),
-                const SizedBox(width: 4),
-                _buildThemeOption(
-                  icon: Icons.dark_mode_rounded,
-                  label: 'داكن',
-                  isSelected: isDark,
-                  onTap: () {
-                    ThemeNotifier.instance.setDark(true);
-                    setState(() {});
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildThemeOption({
-    required IconData icon,
-    required String label,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 250),
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          decoration: BoxDecoration(
-            color: isSelected ? AppColors.primary : Colors.transparent,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: isSelected
-                ? [
-                    BoxShadow(
-                      color: AppColors.primary.withValues(alpha: 0.3),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ]
-                : null,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 16,
-                color: isSelected ? Colors.white : AppColors.textSecondary,
-              ),
-              const SizedBox(width: 6),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: isSelected ? Colors.white : AppColors.textSecondary,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 

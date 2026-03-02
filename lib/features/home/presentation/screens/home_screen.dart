@@ -1008,248 +1008,256 @@ class _GoalPickerSheetState extends State<_GoalPickerSheet> {
           ),
         ],
       ),
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Handle
-            Container(
-              width: 36,
-              height: 4,
-              margin: const EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: AppColors.border,
-                borderRadius: BorderRadius.circular(2),
+      child: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Handle
+              Container(
+                width: 36,
+                height: 4,
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: AppColors.border,
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
-            ),
 
-            // Header
-            Row(
-              children: [
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Icon(
-                    Icons.flag_rounded,
-                    color: AppColors.primary,
-                    size: 22,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'هدف الكتابة اليومي',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.textPrimary,
-                      ),
+              // Header
+              Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    Text(
-                      'يُقفل لمدة 24 ساعة بعد التحديد',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: AppColors.textSecondary,
-                      ),
+                    child: const Icon(
+                      Icons.flag_rounded,
+                      color: AppColors.primary,
+                      size: 22,
                     ),
-                  ],
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 20),
-
-            // Preset options
-            ...List.generate(_presets.length, (i) {
-              final preset = _presets[i];
-              final isActive = !_isCustom && _selected == preset.words;
-              return GestureDetector(
-                onTap: () => setState(() {
-                  _selected = preset.words;
-                  _isCustom = false;
-                }),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  margin: const EdgeInsets.only(bottom: 8),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
                   ),
-                  decoration: BoxDecoration(
-                    color: isActive ? AppColors.primary : AppColors.background,
-                    borderRadius: BorderRadius.circular(12),
-                    border: isActive
-                        ? null
-                        : Border.all(
-                            color: AppColors.border.withValues(alpha: 0.4),
-                          ),
-                  ),
-                  child: Row(
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${preset.words}',
+                        'هدف الكتابة اليومي',
                         style: TextStyle(
                           fontSize: 18,
-                          fontWeight: FontWeight.w800,
-                          color:
-                              isActive ? Colors.white : AppColors.textPrimary,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textPrimary,
                         ),
                       ),
                       Text(
-                        ' كلمة',
+                        'يُقفل لمدة 24 ساعة بعد التحديد',
                         style: TextStyle(
-                          fontSize: 13,
-                          color: isActive
-                              ? Colors.white.withValues(alpha: 0.8)
-                              : AppColors.textSecondary,
-                        ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        preset.label,
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: isActive
-                              ? Colors.white.withValues(alpha: 0.9)
-                              : AppColors.textSecondary,
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        preset.duration,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: isActive
-                              ? Colors.white.withValues(alpha: 0.7)
-                              : AppColors.textHint,
+                          fontSize: 12,
+                          color: AppColors.textSecondary,
                         ),
                       ),
                     ],
                   ),
-                ),
-              );
-            }),
+                ],
+              ),
 
-            // Custom option
-            GestureDetector(
-              onTap: () => setState(() => _isCustom = true),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                margin: const EdgeInsets.only(bottom: 16),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 10,
-                ),
-                decoration: BoxDecoration(
-                  color: _isCustom
-                      ? AppColors.primary.withValues(alpha: 0.08)
-                      : AppColors.background,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: _isCustom
-                        ? AppColors.primary.withValues(alpha: 0.4)
-                        : AppColors.border.withValues(alpha: 0.4),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.edit_rounded,
-                      color: _isCustom ? AppColors.primary : AppColors.textHint,
-                      size: 18,
+              const SizedBox(height: 20),
+
+              // Preset options
+              ...List.generate(_presets.length, (i) {
+                final preset = _presets[i];
+                final isActive = !_isCustom && _selected == preset.words;
+                return GestureDetector(
+                  onTap: () => setState(() {
+                    _selected = preset.words;
+                    _isCustom = false;
+                  }),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    margin: const EdgeInsets.only(bottom: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
                     ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: _isCustom
-                          ? TextField(
-                              controller: _customController,
-                              keyboardType: TextInputType.number,
-                              autofocus: true,
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: AppColors.textPrimary,
-                              ),
-                              decoration: InputDecoration(
-                                hintText: 'أدخل عدد الكلمات...',
-                                hintStyle: TextStyle(
-                                  color: AppColors.textHint,
-                                  fontSize: 14,
-                                ),
-                                border: InputBorder.none,
-                                isDense: true,
-                                contentPadding: EdgeInsets.zero,
-                              ),
-                              onChanged: (v) {
-                                final num = int.tryParse(v);
-                                if (num != null && num > 0) {
-                                  setState(() => _selected = num);
-                                }
-                              },
-                            )
-                          : Text(
-                              'عدد مخصص...',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: AppColors.textHint,
-                              ),
+                    decoration: BoxDecoration(
+                      color:
+                          isActive ? AppColors.primary : AppColors.background,
+                      borderRadius: BorderRadius.circular(12),
+                      border: isActive
+                          ? null
+                          : Border.all(
+                              color: AppColors.border.withValues(alpha: 0.4),
                             ),
                     ),
-                  ],
+                    child: Row(
+                      children: [
+                        Text(
+                          '${preset.words}',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                            color:
+                                isActive ? Colors.white : AppColors.textPrimary,
+                          ),
+                        ),
+                        Text(
+                          ' كلمة',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: isActive
+                                ? Colors.white.withValues(alpha: 0.8)
+                                : AppColors.textSecondary,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          preset.label,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: isActive
+                                ? Colors.white.withValues(alpha: 0.9)
+                                : AppColors.textSecondary,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          preset.duration,
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: isActive
+                                ? Colors.white.withValues(alpha: 0.7)
+                                : AppColors.textHint,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+
+              // Custom option
+              GestureDetector(
+                onTap: () => setState(() => _isCustom = true),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _isCustom
+                        ? AppColors.primary.withValues(alpha: 0.08)
+                        : AppColors.background,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: _isCustom
+                          ? AppColors.primary.withValues(alpha: 0.4)
+                          : AppColors.border.withValues(alpha: 0.4),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.edit_rounded,
+                        color:
+                            _isCustom ? AppColors.primary : AppColors.textHint,
+                        size: 18,
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: _isCustom
+                            ? TextField(
+                                controller: _customController,
+                                keyboardType: TextInputType.number,
+                                autofocus: true,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: AppColors.textPrimary,
+                                ),
+                                decoration: InputDecoration(
+                                  hintText: 'أدخل عدد الكلمات...',
+                                  hintStyle: TextStyle(
+                                    color: AppColors.textHint,
+                                    fontSize: 14,
+                                  ),
+                                  border: InputBorder.none,
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.zero,
+                                ),
+                                onChanged: (v) {
+                                  final num = int.tryParse(v);
+                                  if (num != null && num > 0) {
+                                    setState(() => _selected = num);
+                                  }
+                                },
+                              )
+                            : Text(
+                                'عدد مخصص...',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: AppColors.textHint,
+                                ),
+                              ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
 
-            // Confirm button
-            GestureDetector(
-              onTap: _selected != null
-                  ? () => widget.onGoalSelected(_selected!)
-                  : null,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                  gradient: _selected != null
-                      ? const LinearGradient(
-                          colors: [Color(0xFF0D9B7C), Color(0xFF2BBFA0)],
-                        )
-                      : null,
-                  color: _selected == null ? AppColors.border : null,
-                  borderRadius: BorderRadius.circular(14),
-                  boxShadow: _selected != null
-                      ? [
-                          BoxShadow(
-                            color: AppColors.primary.withValues(alpha: 0.3),
-                            blurRadius: 12,
-                            offset: const Offset(0, 4),
-                          ),
-                        ]
-                      : null,
-                ),
-                child: Center(
-                  child: Text(
-                    _selected != null
-                        ? 'ابدأ التحدي — $_selected كلمة 🎯'
-                        : 'اختر هدفك',
-                    style: TextStyle(
-                      color:
-                          _selected != null ? Colors.white : AppColors.textHint,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
+              // Confirm button
+              GestureDetector(
+                onTap: _selected != null
+                    ? () => widget.onGoalSelected(_selected!)
+                    : null,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  width: double.infinity,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    gradient: _selected != null
+                        ? const LinearGradient(
+                            colors: [Color(0xFF0D9B7C), Color(0xFF2BBFA0)],
+                          )
+                        : null,
+                    color: _selected == null ? AppColors.border : null,
+                    borderRadius: BorderRadius.circular(14),
+                    boxShadow: _selected != null
+                        ? [
+                            BoxShadow(
+                              color: AppColors.primary.withValues(alpha: 0.3),
+                              blurRadius: 12,
+                              offset: const Offset(0, 4),
+                            ),
+                          ]
+                        : null,
+                  ),
+                  child: Center(
+                    child: Text(
+                      _selected != null
+                          ? 'ابدأ التحدي — $_selected كلمة 🎯'
+                          : 'اختر هدفك',
+                      style: TextStyle(
+                        color: _selected != null
+                            ? Colors.white
+                            : AppColors.textHint,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
