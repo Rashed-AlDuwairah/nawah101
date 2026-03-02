@@ -1,0 +1,49 @@
+name: Build iOS IPA (Unsigned)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  build_ios:
+    name: Build iOS IPA
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build iOS App (No Codesign)
+        run: flutter build ios --release --no-codesign
+
+      - name: Create Payload Directory
+        run: mkdir -p build/ios/iphoneos/Payload
+
+      - name: Move App to Payload
+        run: mv build/ios/iphoneos/Runner.app build/ios/iphoneos/Payload/
+
+      - name: Zip into IPA
+        run: |
+          cd build/ios/iphoneos
+          zip -qq -r -9 Nawah.ipa Payload
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nawah-iOS-Build
+          path: build/ios/iphoneos/Nawah.ipa
+          retention-days: 7
